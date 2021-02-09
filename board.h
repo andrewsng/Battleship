@@ -14,24 +14,42 @@ public:
 
 public:
 
-    Board():_board(std::vector(10, std::vector(10, false)))
+    Board():_board(std::vector(10, std::vector(10, Point{})))
     {}
 
 public:
 
-    void addHit(size_type x, size_type y)
+    void hitPoint(size_type x, size_type y)
     {
-        _board[x][y] = true;
+        _board[x][y].isHit = true;
     }
 
     bool checkHit(size_type x, size_type y)
     {
-        return _board[x][y];
+        return _board[x][y].isHit;
+    }
+
+    void occupyPoint(size_type x, size_type y)
+    {
+        _board[x][y].isOccupied = true;
+    }
+
+    bool checkOccupied(size_type x, size_type y)
+    {
+        return _board[x][y].isOccupied;
     }
 
 private:
 
-    std::vector<std::vector<bool>> _board;
+    struct Point
+    {
+        bool isHit{ false };
+        bool isOccupied{ false };
+    };
+
+private:
+
+    std::vector<std::vector<Point>> _board;
 
 };
 
