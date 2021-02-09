@@ -10,6 +10,9 @@ TEST_CASE( "Mark a point on the board as attacked" ) {
 
     REQUIRE( b.checkHit(0, 0) );
     REQUIRE( b.checkHit(4, 7) );
+
+    REQUIRE( !b.checkHit(1, 5) );
+    REQUIRE( !b.checkHit(6, 0) );
 }
 
 TEST_CASE( "Mark a point on the board as occupied by a ship" ) {
@@ -19,4 +22,7 @@ TEST_CASE( "Mark a point on the board as occupied by a ship" ) {
 
     REQUIRE( b.checkOccupied(7, 3) );
     REQUIRE( b.checkOccupied(8, 2) );
+
+    REQUIRE( !b.checkOccupied(2, 6) );
+    REQUIRE( !b.checkOccupied(9, 9) );
 }
