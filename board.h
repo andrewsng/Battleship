@@ -24,7 +24,7 @@ public:
         _board[x][y].isHit = true;
     }
 
-    bool checkHit(size_type x, size_type y)
+    bool checkHit(size_type x, size_type y) const
     {
         return _board[x][y].isHit;
     }
@@ -34,7 +34,7 @@ public:
         _board[x][y].isOccupied = true;
     }
 
-    bool checkOccupied(size_type x, size_type y)
+    bool checkOccupied(size_type x, size_type y) const
     {
         return _board[x][y].isOccupied;
     }
