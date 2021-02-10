@@ -14,8 +14,7 @@ public:
 
 public:
 
-    Board():_board(std::vector(10, std::vector(10, Point{})))
-    {}
+    Board() = default;
 
 public:
 
@@ -49,7 +48,7 @@ private:
 
 private:
 
-    std::vector<std::vector<Point>> _board;
+    std::vector<std::vector<Point>> _board{10, std::vector<Point>{10}};
 
 };
 
