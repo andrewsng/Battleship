@@ -17,12 +17,16 @@ TEST_CASE( "Mark a point on the board as attacked" ) {
 
 TEST_CASE( "Mark a point on the board as occupied by a ship" ) {
     Board b;
-    b.occupyPoint(7, 3);
-    b.occupyPoint(8, 2);
+    b.occupyPoint(7, 3, "ship");
+    b.occupyPoint(8, 2, "ship");
 
     REQUIRE( b.checkOccupied(7, 3) );
     REQUIRE( b.checkOccupied(8, 2) );
+    REQUIRE( b.shipAtPoint(7, 3) == "ship" );
+    REQUIRE( b.shipAtPoint(8, 2) == "ship" );
 
     REQUIRE( !b.checkOccupied(2, 6) );
     REQUIRE( !b.checkOccupied(9, 9) );
+    REQUIRE( b.shipAtPoint(2, 6) == "" );
+    REQUIRE( b.shipAtPoint(9, 9) == "" );
 }
