@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include <vector>
+#include <string>
 #include <cstddef>
 
 
@@ -28,14 +29,20 @@ public:
         return _board[x][y].isHit;
     }
 
-    void occupyPoint(size_type x, size_type y)
+    void occupyPoint(size_type x, size_type y, std::string name)
     {
         _board[x][y].isOccupied = true;
+        _board[x][y].shipName = name;
     }
 
     bool checkOccupied(size_type x, size_type y) const
     {
         return _board[x][y].isOccupied;
+    }
+
+    std::string shipAtPoint(size_type x, size_type y) const
+    {
+        return _board[x][y].shipName;
     }
 
 private:
@@ -44,6 +51,7 @@ private:
     {
         bool isHit{ false };
         bool isOccupied{ false };
+        std::string shipName{};
     };
 
 private:
