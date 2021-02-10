@@ -6,12 +6,15 @@
 #include <cstddef>
 
 
+struct Coord
+{
+    std::size_t x{ 0 };
+    std::size_t y{ 0 };
+};
+
+
 class Board
 {
-
-public:
-
-    using size_type = std::size_t;
 
 public:
 
@@ -19,30 +22,30 @@ public:
 
 public:
 
-    void hitPoint(size_type x, size_type y)
+    void hitPoint(Coord pos)
     {
-        _board[x][y].isHit = true;
+        pointAt(pos).isHit = true;
     }
 
-    bool checkHit(size_type x, size_type y) const
+    bool checkHit(Coord pos) const
     {
-        return _board[x][y].isHit;
+        return pointAt(pos).isHit;
     }
 
-    void occupyPoint(size_type x, size_type y, std::string name)
+    void occupyPoint(Coord pos, std::string name)
     {
-        _board[x][y].isOccupied = true;
-        _board[x][y].shipName = name;
+        pointAt(pos).isOccupied = true;
+        pointAt(pos).shipName = name;
     }
 
-    bool checkOccupied(size_type x, size_type y) const
+    bool checkOccupied(Coord pos) const
     {
-        return _board[x][y].isOccupied;
+        return pointAt(pos).isOccupied;
     }
 
-    std::string shipAtPoint(size_type x, size_type y) const
+    std::string shipAtPoint(Coord pos) const
     {
-        return _board[x][y].shipName;
+        return pointAt(pos).shipName;
     }
 
 private:
@@ -53,6 +56,15 @@ private:
         bool isOccupied{ false };
         std::string shipName{};
     };
+
+    Point & pointAt(Coord pos)
+    {
+        return _board[pos.x][pos.y];
+    }
+    const Point & pointAt(Coord pos) const
+    {
+        return _board[pos.x][pos.y];
+    }
 
 private:
 
