@@ -26,7 +26,7 @@ public:
     {
         pointAt(pos).isHit = true;
     }
-
+	
     bool checkHit(Coord pos) const
     {
         return pointAt(pos).isHit;
@@ -48,12 +48,25 @@ public:
         return pointAt(pos).shipName;
     }
 
+	void hitShip(Coord pos)
+	{
+		pointAt(pos).isSunk = true;
+	}
+
+	bool checkSunk(Coord pos) const
+	{
+		if (checkOccupied(pos) && checkHit(pos)) {
+			return pointAt(pos).isSunk;
+		}
+	}
+
 private:
 
     struct Point
     {
         bool isHit{ false };
         bool isOccupied{ false };
+		bool isSunk{ false };
         std::string shipName{};
     };
 

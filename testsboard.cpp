@@ -30,3 +30,18 @@ TEST_CASE( "Mark a point on the board as occupied by a ship" ) {
     REQUIRE( b.shipAtPoint(Coord{2, 6}) == "" );
     REQUIRE( b.shipAtPoint(Coord{9, 9}) == "" );
 }
+
+TEST_CASE("Mark a ship as destroyed") {
+	Board b;
+	b.checkSunk(Coord{ 3,1 });
+	b.checkSunk(Coord{ 5,5 });
+
+	REQUIRE(b.checkSunk(Coord{ 3,1 }));
+	REQUIRE(b.checkSunk(Coord{ 5,5 }));
+
+	REQUIRE(!b.checkSunk(Coord{ 3,1 }));
+	REQUIRE(!b.checkSunk(Coord{ 5,5 }));
+
+
+
+}
