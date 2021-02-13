@@ -33,14 +33,18 @@ TEST_CASE( "Mark a point on the board as occupied by a ship" ) {
 
 TEST_CASE("Mark a ship as destroyed") {
 	Board b;
-	b.occupyPoint(Coord{ 3,1 }, "ship");
 	b.hitPoint(Coord{ 3,1 });
-	b.shipSunk(Coord{ 3,1 });
-	
+	b.hitPoint(Coord{ 5,3 });
+	b.occupyPoint(Coord{ 3,1 }, "ship");
+	b.occupyPoint(Coord{ 5,3 }, "ship");
+	b.shipSunk(Coord{ 3,1 }, "ship");
+	b.shipSunk(Coord{ 5,3 }, "ship");
 
 	REQUIRE(b.checkSunk(Coord{ 3,1 }));
-	REQUIRE(!b.checkSunk(Coord{ 3,1 }));
+	REQUIRE(b.checkSunk(Coord{ 5,3 }));
 
+	REQUIRE(!b.checkSunk(Coord{ 2,5 }));
+	REQUIRE(!b.checkSunk(Coord{ 4,9 }));
 
 
 }

@@ -22,38 +22,55 @@ public:
 
 public:
 
+	// hitPoint
+	// Set tile to hit.
 	void hitPoint(Coord pos)
 	{
 		pointAt(pos).isHit = true;
 	}
 
+	// checkHit
+	// Return whether ship has been hit or not.
 	bool checkHit(Coord pos) const
 	{
 		return pointAt(pos).isHit;
 	}
 
+	// occupyPoint
+	// Set ship name, set tile to occupied.
 	void occupyPoint(Coord pos, std::string name)
 	{
 		pointAt(pos).isOccupied = true;
 		pointAt(pos).shipName = name;
 	}
 
+	// checkOccupied
+	// Return whether a tile is occupied by a ship or not.
 	bool checkOccupied(Coord pos) const
 	{
 		return pointAt(pos).isOccupied;
 	}
 
+	// shipAtPoint
+	// Return name of ship.
 	std::string shipAtPoint(Coord pos) const
 	{
 		return pointAt(pos).shipName;
 	}
 
-	void shipSunk(Coord pos)
+	// shipSunk
+	// Set ship on tile to sank.
+	void shipSunk(Coord pos, std::string name)
 	{
-		if (checkOccupied(pos) && checkHit(pos))
+		hitPoint(pos);
+		occupyPoint(pos, name);
+		if (checkOccupied(pos) && checkHit(pos)) {
 			pointAt(pos).isSunk = true;
+		}
 	}
 
+	// checkSunk
+	// Return whether a ship has sank or not.
 	bool checkSunk(Coord pos) const
 	{
 		return pointAt(pos).isSunk;
