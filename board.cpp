@@ -1,34 +1,49 @@
 #include "board.h"
 
+#include <vector>
+using std::vector;
+#include <string>
+using std::string;
+#include <utility>
+using std::swap;
+using std::pair;
+using std::make_pair;
 
-bool Board::addShip(Coord start, Coord end, const std::string& name)
+
+pair<bool, string> Board::addShip(Coord start, Coord end, const string& name)
 {
     if (start.x == end.x && start.y == end.y)
-        return false;
+        return make_pair(false, "Coordinates are the same");
 
     if (start.x != end.x && start.y != end.y)
-        return false;
+        return make_pair(false, "Coordinates are not aligned");
 
-    if (start.x == end.x)  // Vertical Ship
+    vector<Coord> coordinates;
+    if (start.x == end.x)  // VERTICAL SHIP
     {
         if (start.y > end.y)
-            std::swap(start, end);
-
+            swap(start, end);
         for (auto row = start.y; row <= end.y; ++row)
-        {
-            occupyPoint(Coord{start.x, row}, name);
-        }
+            coordinates.push_back(Coord{start.x, row});
     }
-    else  // Horizontal Ship
+    else                   // HORIZONTAL SHIP
     {
         if (start.x > end.x)
-            std::swap(start, end);
-
+            swap(start, end);
         for (auto col = start.x; col <= end.x; ++col)
-        {
-            occupyPoint(Coord{col, start.y}, name);
-        }
+            coordinates.push_back(Coord{col, start.y});
     }
 
-    return true;
+    for (auto c : coordinates)
+    {
+        if (checkOccupied(c))
+            return make_pair(false,
+                "Coordinates already occupied by ship");
+    }
+    for (auto c : coordinates)
+    {
+        occupyPoint(c, name);
+    }
+
+    return make_pair(true, "");
 }

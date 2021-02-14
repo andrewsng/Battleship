@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <utility>
 #include <cstddef>
 
 
@@ -77,10 +78,12 @@ public:
 	}
 
     // addShip
-    // Given 2 coordinates aligned either vertically or horizontally,
-    // adds a ship between them, inclusively.
-    // Returns whether the operation was successful.
-    bool addShip(Coord start, Coord end, const std::string& name);
+    // Given 2 coordinates aligned either vertically or
+    //   horizontally, adds a ship between them, inclusively.
+    // Returns whether the operation was successful, and an error
+    //   message if unsuccessful.
+    std::pair<bool, std::string>
+        addShip(Coord start, Coord end, const std::string& name);
 
 private:
 
