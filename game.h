@@ -32,6 +32,8 @@ public:
 
 private:
 
+    // getCoord
+    // Gets a single coordinate from the command line
     Coord getCoord();
 
 private:
