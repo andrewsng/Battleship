@@ -45,6 +45,27 @@ TEST_CASE("Mark a ship as destroyed") {
 
 	REQUIRE(!b.checkSunk(Coord{ 2,5 }));
 	REQUIRE(!b.checkSunk(Coord{ 4,9 }));
+}
 
+TEST_CASE( "Add a full ship to a board" ) {
+    Board b;
 
+    SECTION( "Ship 1" ) {
+        REQUIRE(b.addShip(Coord{3, 5}, Coord{3, 9}, "ship1"));
+        for (std::size_t i = 5; i <= 9; ++i)
+        {
+            REQUIRE(b.checkOccupied(Coord{3, i}));
+            REQUIRE(b.shipAtPoint(Coord{3, i}) == "ship1");
+        }
+    }
+    SECTION( "Ship 2" ) {
+        REQUIRE(b.addShip(Coord{2, 6}, Coord{4, 6}, "ship2"));
+        for (std::size_t i = 2; i <= 4; ++i)
+        {
+            REQUIRE(b.checkOccupied(Coord{i, 6}));
+            REQUIRE(b.shipAtPoint(Coord{i, 6}) == "ship2");
+        }
+    }
+    REQUIRE(!b.addShip(Coord{1, 1}, Coord{2, 2}, "ship"));
+    REQUIRE(!b.addShip(Coord{1, 3}, Coord{3, 1}, "ship"));
 }
