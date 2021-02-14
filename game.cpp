@@ -24,8 +24,12 @@ void Game::inputShip(const string& ship, std::size_t player)
         c0 = getCoord();
         c1 = getCoord();
 
-        if (!(_boards[player].addShip(c0, c1, ship)))
+        auto [worked, msg] = _boards[player].addShip(c0, c1, ship);
+        if (!worked)
+        {
+            cout << "Could not place ship. Try again: " << msg << '\n';
             continue;
+        }
 
         break;
     }

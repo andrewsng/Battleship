@@ -22,7 +22,6 @@ TEST_CASE( "Add a ship using player input" ) {
         std::cout << "\nTests require coordinates: c7, e7\n";
         g.inputShip("ship2", 1);
         Board b = g.board(1);
-        REQUIRE(b.addShip(Coord{2, 6}, Coord{4, 6}, "ship2"));
         for (std::size_t i = 2; i <= 4; ++i)
         {
             REQUIRE(b.checkOccupied(Coord{i, 6}));
