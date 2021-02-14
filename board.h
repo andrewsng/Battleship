@@ -38,7 +38,7 @@ public:
 
 	// occupyPoint
 	// Set ship name, set tile to occupied.
-	void occupyPoint(Coord pos, std::string name)
+	void occupyPoint(Coord pos, const std::string& name)
 	{
 		pointAt(pos).isOccupied = true;
 		pointAt(pos).shipName = name;
@@ -60,7 +60,7 @@ public:
 
 	// shipSunk
 	// Set ship on tile to sank.
-	void shipSunk(Coord pos, std::string name)
+	void shipSunk(Coord pos, const std::string& name)
 	{
 		hitPoint(pos);
 		occupyPoint(pos, name);
@@ -75,6 +75,38 @@ public:
 	{
 		return pointAt(pos).isSunk;
 	}
+
+    bool addShip(Coord start, Coord end, const std::string& name)
+    {
+        if (start.x == end.x && start.y == end.y)
+            return false;
+
+        if (start.x != end.x && start.y != end.y)
+            return false;
+
+        if (start.x == end.x)  // Vertical Ship
+        {
+            if (start.y > end.y)
+                std::swap(start, end);
+
+            for (auto row = start.y; row <= end.y; ++row)
+            {
+                occupyPoint(Coord{start.x, row}, name);
+            }
+        }
+        else  // Horizontal Ship
+        {
+            if (start.x > end.x)
+                std::swap(start, end);
+
+            for (auto col = start.x; col <= end.x; ++col)
+            {
+                occupyPoint(Coord{col, start.y}, name);
+            }
+        }
+
+        return true;
+    }
 
 private:
 
