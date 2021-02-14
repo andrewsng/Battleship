@@ -1,14 +1,5 @@
 #include "board.h"
 
-#include <vector>
-using std::vector;
-#include <string>
-using std::string;
-#include <utility>
-using std::swap;
-using std::pair;
-using std::make_pair;
-
 
 pair<bool, string> Board::addShip(Coord start, Coord end, const string& name)
 {

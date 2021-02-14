@@ -2,10 +2,16 @@
 #define BOARD_H
 
 #include <vector>
+using std::vector;
 #include <string>
+using std::string;
 #include <utility>
 #include <cstddef>
-
+#include <utility>
+using std::pair;
+using std::make_pair;
+#include <algorithm>
+using std::swap;
 
 struct Coord
 {
@@ -39,7 +45,7 @@ public:
 
 	// occupyPoint
 	// Set ship name, set tile to occupied.
-	void occupyPoint(Coord pos, const std::string& name)
+	void occupyPoint(Coord pos, const string& name)
 	{
 		pointAt(pos).isOccupied = true;
 		pointAt(pos).shipName = name;
@@ -61,7 +67,7 @@ public:
 
 	// shipSunk
 	// Set ship on tile to sank.
-	void shipSunk(Coord pos, const std::string& name)
+	void shipSunk(Coord pos, const string& name)
 	{
 		hitPoint(pos);
 		occupyPoint(pos, name);
@@ -82,8 +88,8 @@ public:
     //   horizontally, adds a ship between them, inclusively.
     // Returns whether the operation was successful, and an error
     //   message if unsuccessful.
-    std::pair<bool, std::string>
-        addShip(Coord start, Coord end, const std::string& name);
+    pair<bool, string>
+        addShip(Coord start, Coord end, const string& name);
 
 private:
 
@@ -92,7 +98,7 @@ private:
 		bool isHit{ false };
 		bool isOccupied{ false };
 		bool isSunk{ false };
-		std::string shipName{};
+		string shipName{};
 	};
 
 	Point& pointAt(Coord pos)

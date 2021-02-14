@@ -1,20 +1,6 @@
 #include "game.h"
 #include "board.h"
 
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::cerr;
-#include <string>
-using std::string;
-using std::getline;
-#include <sstream>
-using std::istringstream;
-#include <cctype>
-using std::isalpha;
-using std::tolower;
-
-
 void Game::inputShip(const string& ship, std::size_t player)
 {
     Coord c0, c1;

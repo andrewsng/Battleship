@@ -3,8 +3,19 @@
 
 #include "board.h"
 
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::cerr;
 #include <array>
 #include <string>
+using std::string;
+using std::getline;
+#include <sstream>
+using std::istringstream;
+#include <cctype>
+using std::isalpha;
+using std::tolower;
 
 
 class Game
