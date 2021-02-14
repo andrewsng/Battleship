@@ -76,6 +76,9 @@ public:
 		return pointAt(pos).isSunk;
 	}
 
+    // addShip
+    // Given 2 coordinates aligned either vertically or horizontally,
+    // adds a ship between them, inclusively.
     bool addShip(Coord start, Coord end, const std::string& name)
     {
         if (start.x == end.x && start.y == end.y)
