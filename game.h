@@ -22,6 +22,10 @@ class Game
 {
 
 public:
+
+    Game() = default;
+
+public:
     
     // inputShip
     // Add a ship to a player's board according to coordinate inputs
@@ -49,8 +53,8 @@ private:
 
 private:
 
-    std::size_t _player;
-    std::array<Board, 2> _boards;
+    std::size_t          _player{ 0 };  // Current player (0 or 1)
+    std::array<Board, 2> _boards{};     // Player specific boards
 
 };
 
