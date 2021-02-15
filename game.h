@@ -26,10 +26,17 @@ public:
     Game() = default;
 
 public:
+
+    // switchPlayer
+    // Switches the current player number.
+    void switchPlayer()
+    {
+        _player = 1 - _player;
+    }
     
     // inputShip
     // Add a ship to a player's board according to coordinate inputs
-    void inputShip(const std::string& ship, std::size_t player);
+    void inputShip(const std::string& ship);
 
     // board
     // Returns a reference to the board of the given player.
