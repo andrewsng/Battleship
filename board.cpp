@@ -1,3 +1,10 @@
+// board.cpp
+// Andrew Ng, Rose Peters
+// Created: 2021-02-13
+//
+// For CS 372 Spring 2021
+// Source for Board class
+
 #include "board.h"
 
 

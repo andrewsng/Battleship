@@ -1,3 +1,10 @@
+// testsboard.cpp
+// Andrew Ng, Rose Peters
+// Created: 2021-02-08
+//
+// For CS 372 Spring 2021
+// Tests for Board class
+
 #include "catch.hpp"
 
 #include "board.h"

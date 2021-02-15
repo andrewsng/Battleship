@@ -1,3 +1,10 @@
+// game.h
+// Andrew Ng, Rose Peters
+// Created: 2021-02-13
+//
+// For CS 372 Spring 2021
+// Header for Game class
+
 #ifndef GAME_H
 #define GAME_H
 

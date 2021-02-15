@@ -1,3 +1,10 @@
+// testsgame.cpp
+// Andrew Ng, Rose Peters
+// Created: 2021-02-13
+//
+// For CS 372 Spring 2021
+// Tests for Game class
+
 #include "catch.hpp"
 
 #include "game.h"

@@ -1,3 +1,10 @@
+// board.h
+// Andrew Ng, Rose Peters
+// Created: 2021-02-08
+//
+// For CS 372 Spring 2021
+// Header for Board class
+
 #ifndef BOARD_H
 #define BOARD_H
 

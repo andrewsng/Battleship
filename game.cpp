@@ -1,3 +1,10 @@
+// game.cpp
+// Andrew Ng, Rose Peters
+// Created: 2021-02-13
+//
+// For CS 372 Spring 2021
+// Source for Game class
+
 #include "game.h"
 #include "board.h"
 
