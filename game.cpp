@@ -57,13 +57,14 @@ Coord Game::getCoord()
 
         std::size_t x = tolower(letter) - 'a';
         std::size_t y = digit - 1;
-
-        if (x >= 10 || y >= 10)
+        Coord result{x, y};
+        
+        if (_boards[_player].outOfBounds(result))
         {
             cerr << "Coords out of bounds!\n";
             continue;
         }
         
-        return Coord{x, y};
+        return result;
     }
 }
