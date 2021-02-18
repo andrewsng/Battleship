@@ -45,6 +45,10 @@ public:
     // Add a ship to a player's board according to coordinate inputs
     void inputShip(const std::string& ship);
 
+    // printShips
+    // Prints the current player's board with ships visible.
+    void printShips() const;
+
     // board
     // Returns a reference to the board of the given player.
     // FOR TESTING PURPOSES ONLY (Client using Game should not have
@@ -63,7 +67,13 @@ private:
 
     // getCoord
     // Gets a single coordinate from the command line
-    Coord getCoord();
+    Coord getCoord() const;
+
+    void printGridLine(std::size_t size) const;
+
+    void printGridNumbers(std::size_t size) const;
+
+    void printSpace(Coord pos) const;
 
 private:
 

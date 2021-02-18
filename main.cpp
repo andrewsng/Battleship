@@ -12,7 +12,9 @@ int main()
 {
     Game game;
 
+    game.printShips();
     game.inputShip("ship1");
+    game.printShips();
     game.switchPlayer();
     // game.hitTarget();
 }

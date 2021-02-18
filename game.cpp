@@ -29,7 +29,69 @@ void Game::inputShip(const string& ship)
 }
 
 
-Coord Game::getCoord()
+void Game::printGridLine(std::size_t size) const
+{
+    std::cout << '+';
+    for (std::size_t i = 0; i < size; ++i)
+    {
+        std::cout << "---+";
+    }
+    std::cout << '\n';
+}
+
+
+void Game::printGridNumbers(std::size_t size) const
+{
+    std::cout << ' ';
+    for (std::size_t col = 1; col < size+1; ++col)
+    {
+        std::cout << ' ' << col << "  ";
+    }
+    std::cout << '\n';
+}
+
+
+void Game::printSpace(Coord pos) const
+{
+    if (_boards[_player].checkOccupied(pos))
+    {
+        std::cout << '[' << _boards[_player].shipAtPoint(pos)[0] << ']';
+    }
+    else
+    {
+        std::cout << " - ";
+    }
+}
+
+
+void Game::printShips() const
+{
+    const Board &currBoard = _boards[_player];
+    const std::size_t size = currBoard.size();
+    const std::string padding = "   "; // 3 spaces
+
+    std::cout << padding;
+    printGridLine(size);
+    for (std::size_t row = 0; row < size; ++row)
+    {
+        char rowLetter = 'A' + row;
+        std::cout << ' ' << rowLetter << " |";
+        for (std::size_t col = 0; col < size; ++col)
+        {
+            printSpace(Coord{row, col});
+            std::cout << '|';
+        }
+        std::cout << '\n';
+
+        std::cout << padding;
+        printGridLine(size);
+    }
+    std::cout << padding;
+    printGridNumbers(size);
+}
+
+
+Coord Game::getCoord() const
 {
     while (true)
     {
