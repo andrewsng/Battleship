@@ -35,6 +35,20 @@ public:
 
 public:
 
+    // size
+    // Returns size of a side of the board
+    std::size_t size() const
+    {
+        return _size;
+    }
+
+    // outOfBounds
+    // Returns whether a Coord is out of board boundaries.
+    bool outOfBounds(Coord pos) const
+    {
+        return pos.x >= size() || pos.y >= size();
+    }
+
 	// hitPoint
 	// Set tile to hit.
 	void hitPoint(Coord pos)
@@ -120,7 +134,8 @@ private:
 
 private:
 
-	std::vector<std::vector<Point>> _board{ 10, std::vector<Point>{10} };
+    std::size_t _size{ 10 };
+	std::vector<std::vector<Point>> _board{ size(), std::vector<Point>{ size() } };
 
 };
 
