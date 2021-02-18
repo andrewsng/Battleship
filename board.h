@@ -19,6 +19,10 @@ using std::make_pair;
 #include <algorithm>
 using std::swap;
 
+
+// Coord struct
+// Basic struct for a coordinate on the 2D Board grid.
+// Can be used as: Coord{x, y} or Coord c{x, y}.
 struct Coord
 {
 	std::size_t x{ 0 };
@@ -26,6 +30,8 @@ struct Coord
 };
 
 
+// Board class
+// 2-dimensional square array of points containing hit/ship data.
 class Board
 {
 
@@ -36,7 +42,7 @@ public:
 public:
 
     // size
-    // Returns size of a side of the board
+    // Returns size of a side of the board.
     std::size_t size() const
     {
         return _size;
@@ -122,6 +128,11 @@ private:
 
 private:
 
+    // Point struct
+    // Holds data for a point on the 2D Board that informs:
+    //  - Has this point been hit or not?
+    //  - Is this point occupied by a ship?
+    //     - ...and if so, what is the ship's name?
 	struct Point
 	{
 		bool isHit{ false };
@@ -130,6 +141,8 @@ private:
 		string shipName{};
 	};
 
+    // pointAt
+    // Returns a reference to the point data at a given coordinate.
 	Point& pointAt(Coord pos)
 	{
 		return _board[pos.x][pos.y];
@@ -141,8 +154,12 @@ private:
 
 private:
 
+    // Side length of the square grid.
     std::size_t _size{ 10 };
-	std::vector<std::vector<Point>> _board{ size(), std::vector<Point>{ size() } };
+
+    // 2-dimensional square array of points.
+    // NOTE: Requires _size to be initialized before construction.
+	std::vector<std::vector<Point>> _board{ size(), std::vector<Point>{size()} };
 
 };
 
