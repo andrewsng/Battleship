@@ -7,6 +7,17 @@
 
 #include "board.h"
 
+#include <vector>
+using std::vector;
+#include <string>
+using std::string;
+#include <utility>
+using std::pair;
+using std::make_pair;
+using std::swap;
+#include <algorithm>
+using std::any_of;
+
 
 vector<Coord> Board::coordsBetween(Coord start, Coord end) const
 {
@@ -40,7 +51,7 @@ pair<bool, string> Board::addShip(Coord start, Coord end, const string& name)
 
     vector<Coord> shipCoords = coordsBetween(start, end);
 
-    if (std::any_of(shipCoords.begin(), shipCoords.end(),
+    if (any_of(shipCoords.begin(), shipCoords.end(),
             [this] (Coord c) { return isOccupied(c); }))
         return make_pair(false, "Coordinates already occupied by ship");
 

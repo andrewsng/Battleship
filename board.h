@@ -8,37 +8,43 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include <vector>
-using std::vector;
-#include <string>
-using std::string;
-#include <cstddef>
-#include <utility>
-using std::pair;
-using std::make_pair;
-#include <algorithm>
-using std::swap;
+#include <vector>   // For std::vector
+#include <string>   // For std::string
+#include <utility>  // For std::pair
+#include <cstddef>  // For std::size_t
 
 
-// Coord struct
+// struct Coord
 // Basic struct for a coordinate on the 2D Board grid.
 // Can be used as: Coord{x, y} or Coord c{x, y}.
 struct Coord
 {
 	std::size_t x{ 0 };
 	std::size_t y{ 0 };
-};
+};  // End struct Coord
 
 
-// Board class
+// class Board
 // 2-dimensional square array of points containing hit/ship data.
 class Board
 {
 
+// ---- Board: ctors, dctors, op= ----
 public:
 
+    // Default ctor.
 	Board() = default;
 
+    // Default dctor.
+    ~Board() = default;
+
+    // Copy, move, op= all deleted.
+    Board(const Board &other) = delete;
+    Board &operator=(const Board &other) = delete;
+    Board(Board &&other) = delete;
+    Board &operator=(Board &&other) = delete;
+
+// ---- Board: General public functions ----
 public:
 
     // size
@@ -71,7 +77,7 @@ public:
 
 	// occupyPoint
 	// Set ship name, set tile to occupied.
-	void occupyPoint(Coord pos, const string& name)
+	void occupyPoint(Coord pos, const std::string& name)
 	{
 		pointAt(pos).isOccupied = true;
 		pointAt(pos).shipName = name;
@@ -93,7 +99,7 @@ public:
 
 	// shipSunk
 	// Set ship on tile to sank.
-	void shipSunk(Coord pos, const string& name)
+	void shipSunk(Coord pos, const std::string& name)
 	{
 			pointAt(pos).isSunk = true;
 			pointAt(pos).shipName = name;
@@ -111,24 +117,26 @@ public:
     //   horizontally, adds a ship between them, inclusively.
     // Returns whether the operation was successful, and an error
     //   message if unsuccessful.
-    pair<bool, string>
-        addShip(Coord start, Coord end, const string& name);
+    std::pair<bool, std::string>
+        addShip(Coord start, Coord end, const std::string& name);
 
 	// sendAttack
 	// Given a coordinate, sets a tile to hit.
 	// Returns whether the hit was successful, and an error
 	// message if the tile was already hit.
-	pair<bool,string> sendAttack(Coord hitTile);
+    std::pair<bool,std::string> sendAttack(Coord hitTile);
 
+// ---- Board: General private functions ----
 private:
 
     // getCoordsBetween
     // Returns a list of coordinates between the 2 given, including them.
-    vector<Coord> coordsBetween(Coord start, Coord end) const;
+    std::vector<Coord> coordsBetween(Coord start, Coord end) const;
 
+// ---- Board: Private Point struct and helper functions ----
 private:
 
-    // Point struct
+    // struct Point
     // Holds data for a point on the 2D Board that informs:
     //  - Has this point been hit or not?
     //  - Is this point occupied by a ship?
@@ -138,8 +146,8 @@ private:
 		bool isHit{ false };
 		bool isOccupied{ false };
 		bool isSunk{ false };
-		string shipName{};
-	};
+        std::string shipName{};
+	};  // End struct Point
 
     // pointAt
     // Returns a reference to the point data at a given coordinate.
@@ -152,6 +160,7 @@ private:
 		return _board[pos.x][pos.y];
 	}
 
+// ---- Board: Private data members ----
 private:
 
     // Side length of the square grid.
@@ -161,7 +170,7 @@ private:
     // NOTE: Requires _size to be initialized before construction.
 	std::vector<std::vector<Point>> _board{ size(), std::vector<Point>{size()} };
 
-};
+};  // End class Board
 
 
 #endif  // BOARD_H
