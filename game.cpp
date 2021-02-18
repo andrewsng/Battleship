@@ -20,7 +20,7 @@ void Game::inputShip(const string& ship)
         auto [worked, msg] = currentBoard().addShip(c0, c1, ship);
         if (!worked)
         {
-            cout << "Could not place ship. Try again: " << msg << '\n';
+            cout << "\nCould not place ship, try again: " << msg << '\n';
             continue;
         }
 

@@ -113,6 +113,13 @@ public:
 	// Returns whether the hit was successful, and an error
 	// message if the tile was already hit.
 	pair<bool,string> sendAttack(Coord hitTile);
+
+private:
+
+    // getCoordsBetween
+    // Returns a list of coordinates between the 2 given, including them.
+    vector<Coord> coordsBetween(Coord start, Coord end) const;
+
 private:
 
 	struct Point
