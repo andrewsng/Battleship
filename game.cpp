@@ -29,10 +29,10 @@ void Game::inputShip(const string& ship)
 }
 
 
-void Game::printGridLine(std::size_t size) const
+void Game::printGridLine() const
 {
     std::cout << '+';
-    for (std::size_t i = 0; i < size; ++i)
+    for (std::size_t col = 0; col < currentBoard().size(); ++col)
     {
         std::cout << "---+";
     }
@@ -40,12 +40,12 @@ void Game::printGridLine(std::size_t size) const
 }
 
 
-void Game::printGridNumbers(std::size_t size) const
+void Game::printGridNumbers() const
 {
     std::cout << ' ';
-    for (std::size_t col = 1; col < size+1; ++col)
+    for (std::size_t colNum = 1; colNum < currentBoard().size()+1; ++colNum)
     {
-        std::cout << ' ' << col << "  ";
+        std::cout << ' ' << colNum << "  ";
     }
     std::cout << '\n';
 }
@@ -55,7 +55,8 @@ void Game::printSpace(Coord pos) const
 {
     if (currentBoard().checkOccupied(pos))
     {
-        std::cout << '[' << currentBoard().shipAtPoint(pos)[0] << ']';
+        const char shipLetter = currentBoard().shipAtPoint(pos)[0];
+        std::cout << '[' << shipLetter << ']';
     }
     else
     {
@@ -70,7 +71,7 @@ void Game::printShips() const
     const std::string padding = "   "; // 3 spaces
 
     std::cout << padding;
-    printGridLine(size);
+    printGridLine();
     for (std::size_t row = 0; row < size; ++row)
     {
         char rowLetter = 'A' + row;
@@ -83,10 +84,10 @@ void Game::printShips() const
         std::cout << '\n';
 
         std::cout << padding;
-        printGridLine(size);
+        printGridLine();
     }
     std::cout << padding;
-    printGridNumbers(size);
+    printGridNumbers();
 }
 
 

@@ -66,10 +66,16 @@ private:
     // Gets a single coordinate from the command line
     Coord getCoord() const;
 
-    void printGridLine(std::size_t size) const;
+    // printGridLine
+    // Prints a gridline for the current board (+---+---+).
+    void printGridLine() const;
 
-    void printGridNumbers(std::size_t size) const;
+    // printGridNumbers
+    // Prints grid numbers for the current board x-axis.
+    void printGridNumbers() const;
 
+    // printSpace
+    // Prints the space on the current board at the given coordinate.
     void printSpace(Coord pos) const;
 
 private:
