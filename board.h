@@ -75,11 +75,8 @@ public:
 	// Set ship on tile to sank.
 	void shipSunk(Coord pos, const string& name)
 	{
-		hitPoint(pos);
-		occupyPoint(pos, name);
-		if (checkOccupied(pos) && checkHit(pos)) {
 			pointAt(pos).isSunk = true;
-		}
+			pointAt(pos).shipName = name;
 	}
 
 	// checkSunk
@@ -97,6 +94,11 @@ public:
     pair<bool, string>
         addShip(Coord start, Coord end, const string& name);
 
+	// sendAttack
+	// Given a coordinate, sets a tile to hit.
+	// Returns whether the hit was successful, and an error
+	// message if the tile was already hit.
+	pair<bool,string> sendAttack(Coord hitTile);
 private:
 
 	struct Point
