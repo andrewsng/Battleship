@@ -18,21 +18,19 @@ TEST_CASE( "Add a ship using player input" ) {
     SECTION( "Ship 1" ) {
         std::cout << "Tests require coordinates: d6, d10\n";
         g.inputShip("ship1");
-        Board b = g.board(0);
         for (std::size_t i = 5; i <= 9; ++i)
         {
-            REQUIRE(b.checkOccupied(Coord{3, i}));
-            REQUIRE(b.shipAtPoint(Coord{3, i}) == "ship1");
+            REQUIRE(g.currentBoard().checkOccupied(Coord{3, i}));
+            REQUIRE(g.currentBoard().shipAtPoint(Coord{3, i}) == "ship1");
         }
     }
     SECTION( "Ship 2" ) {
         std::cout << "\nTests require coordinates: c7, e7\n";
         g.inputShip("ship2");
-        Board b = g.board(0);
         for (std::size_t i = 2; i <= 4; ++i)
         {
-            REQUIRE(b.checkOccupied(Coord{i, 6}));
-            REQUIRE(b.shipAtPoint(Coord{i, 6}) == "ship2");
+            REQUIRE(g.currentBoard().checkOccupied(Coord{i, 6}));
+            REQUIRE(g.currentBoard().shipAtPoint(Coord{i, 6}) == "ship2");
         }
     }
 }

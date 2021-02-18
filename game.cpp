@@ -17,7 +17,7 @@ void Game::inputShip(const string& ship)
         c0 = getCoord();
         c1 = getCoord();
 
-        auto [worked, msg] = _boards[_player].addShip(c0, c1, ship);
+        auto [worked, msg] = currentBoard().addShip(c0, c1, ship);
         if (!worked)
         {
             cout << "Could not place ship. Try again: " << msg << '\n';
@@ -53,9 +53,9 @@ void Game::printGridNumbers(std::size_t size) const
 
 void Game::printSpace(Coord pos) const
 {
-    if (_boards[_player].checkOccupied(pos))
+    if (currentBoard().checkOccupied(pos))
     {
-        std::cout << '[' << _boards[_player].shipAtPoint(pos)[0] << ']';
+        std::cout << '[' << currentBoard().shipAtPoint(pos)[0] << ']';
     }
     else
     {
@@ -66,8 +66,7 @@ void Game::printSpace(Coord pos) const
 
 void Game::printShips() const
 {
-    const Board &currBoard = _boards[_player];
-    const std::size_t size = currBoard.size();
+    const std::size_t size = currentBoard().size();
     const std::string padding = "   "; // 3 spaces
 
     std::cout << padding;
@@ -121,7 +120,7 @@ Coord Game::getCoord() const
         std::size_t y = digit - 1;
         Coord result{x, y};
         
-        if (_boards[_player].outOfBounds(result))
+        if (currentBoard().outOfBounds(result))
         {
             cerr << "Coords out of bounds!\n";
             continue;

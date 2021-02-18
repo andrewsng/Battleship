@@ -49,18 +49,15 @@ public:
     // Prints the current player's board with ships visible.
     void printShips() const;
 
-    // board
-    // Returns a reference to the board of the given player.
-    // FOR TESTING PURPOSES ONLY (Client using Game should not have
-    // direct access to the boards).
-    // For use with testsgame.cpp
-    Board& board(std::size_t player)
+    // currentBoard
+    // Returns a reference to the board of the current player.
+    Board& currentBoard()
     {
-        return _boards[player];
+        return _boards[_player];
     }
-    const Board& board(std::size_t player) const
+    const Board& currentBoard() const
     {
-        return _boards[player];
+        return _boards[_player];
     }
 
 private:
