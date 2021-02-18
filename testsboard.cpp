@@ -12,14 +12,14 @@
 
 TEST_CASE( "Mark a point on the board as attacked" ) {
     Board b;
-    b.hitPoint(Coord{0, 0});
-    b.hitPoint(Coord{4, 7});
+    b.hit(Coord{0, 0});
+    b.hit(Coord{4, 7});
 
-    REQUIRE( b.checkHit(Coord{0, 0}) );
-    REQUIRE( b.checkHit(Coord{4, 7}) );
+    REQUIRE( b.isHitAt(Coord{0, 0}) );
+    REQUIRE( b.isHitAt(Coord{4, 7}) );
 
-    REQUIRE( !b.checkHit(Coord{1, 5}) );
-    REQUIRE( !b.checkHit(Coord{6, 0}) );
+    REQUIRE( !b.isHitAt(Coord{1, 5}) );
+    REQUIRE( !b.isHitAt(Coord{6, 0}) );
 }
 
 TEST_CASE( "Mark a point on the board as occupied by a ship" ) {
@@ -27,15 +27,15 @@ TEST_CASE( "Mark a point on the board as occupied by a ship" ) {
     b.occupyPoint(Coord{7, 3}, "ship");
     b.occupyPoint(Coord{8, 2}, "ship");
 
-    REQUIRE( b.checkOccupied(Coord{7, 3}) );
-    REQUIRE( b.checkOccupied(Coord{8, 2}) );
-    REQUIRE( b.shipAtPoint(Coord{7, 3}) == "ship" );
-    REQUIRE( b.shipAtPoint(Coord{8, 2}) == "ship" );
+    REQUIRE( b.isOccupied(Coord{7, 3}) );
+    REQUIRE( b.isOccupied(Coord{8, 2}) );
+    REQUIRE( b.shipAt(Coord{7, 3}) == "ship" );
+    REQUIRE( b.shipAt(Coord{8, 2}) == "ship" );
 
-    REQUIRE( !b.checkOccupied(Coord{2, 6}) );
-    REQUIRE( !b.checkOccupied(Coord{9, 9}) );
-    REQUIRE( b.shipAtPoint(Coord{2, 6}) == "" );
-    REQUIRE( b.shipAtPoint(Coord{9, 9}) == "" );
+    REQUIRE( !b.isOccupied(Coord{2, 6}) );
+    REQUIRE( !b.isOccupied(Coord{9, 9}) );
+    REQUIRE( b.shipAt(Coord{2, 6}) == "" );
+    REQUIRE( b.shipAt(Coord{9, 9}) == "" );
 }
 
 TEST_CASE("Mark a ship as destroyed") {
@@ -46,15 +46,15 @@ TEST_CASE("Mark a ship as destroyed") {
 		b.addShip(Coord{ 2, 2 }, Coord{ 2,5 }, "ship");
 
 		for (std::size_t i = 2; i <= 5; i++) {
-			b.hitPoint(Coord{ 2,i });
+			b.hit(Coord{ 2,i });
 			b.occupyPoint(Coord{ 2,i }, "ship");
 			b.shipSunk(Coord{ 2,i }, "ship");
 		}
 
 		for (std::size_t i = 2; i <= 5; i++)
 		{
-			REQUIRE(b.checkHit(Coord{ 2,i }));
-			REQUIRE(b.checkOccupied(Coord{ 2,i }));
+			REQUIRE(b.isHitAt(Coord{ 2,i }));
+			REQUIRE(b.isOccupied(Coord{ 2,i }));
 			REQUIRE(b.checkSunk(Coord{ 2,i }));
 
 		}
@@ -71,15 +71,15 @@ TEST_CASE("Mark a ship as destroyed") {
 		b.addShip(Coord{ 5, 6 }, Coord{ 8,6 }, "ship");
 
 		for (std::size_t i = 5; i <= 8; i++) {
-			b.hitPoint(Coord{ i,6 });
+			b.hit(Coord{ i,6 });
 			b.occupyPoint(Coord{ i,6 }, "ship");
 			b.shipSunk(Coord{ i,6 }, "ship");
 		}
 
 		for (std::size_t i = 5; i <= 8; i++)
 		{
-			REQUIRE(b.checkHit(Coord{ i,6 }));
-			REQUIRE(b.checkOccupied(Coord{ i,6 }));
+			REQUIRE(b.isHitAt(Coord{ i,6 }));
+			REQUIRE(b.isOccupied(Coord{ i,6 }));
 			REQUIRE(b.checkSunk(Coord{ i,6 }));
 
 		}
@@ -100,8 +100,8 @@ TEST_CASE( "Add a full ship to a board" ) {
         REQUIRE(worked);
         for (std::size_t i = 5; i <= 9; ++i)
         {
-            REQUIRE(b.checkOccupied(Coord{3, i}));
-            REQUIRE(b.shipAtPoint(Coord{3, i}) == "ship");
+            REQUIRE(b.isOccupied(Coord{3, i}));
+            REQUIRE(b.shipAt(Coord{3, i}) == "ship");
         }
     }
     SECTION( "Horizontal Ship" ) {
@@ -109,8 +109,8 @@ TEST_CASE( "Add a full ship to a board" ) {
         REQUIRE(worked);
         for (std::size_t i = 2; i <= 4; ++i)
         {
-            REQUIRE(b.checkOccupied(Coord{i, 6}));
-            REQUIRE(b.shipAtPoint(Coord{i, 6}) == "ship");
+            REQUIRE(b.isOccupied(Coord{i, 6}));
+            REQUIRE(b.shipAt(Coord{i, 6}) == "ship");
         }
     }
     SECTION( "Coordinates not aligned" ) {

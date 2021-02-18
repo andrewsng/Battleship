@@ -53,9 +53,9 @@ void Game::printGridNumbers() const
 
 void Game::printSpace(Coord pos) const
 {
-    if (currentBoard().checkOccupied(pos))
+    if (currentBoard().isOccupied(pos))
     {
-        const char shipLetter = currentBoard().shipAtPoint(pos)[0];
+        const char shipLetter = currentBoard().shipAt(pos)[0];
         std::cout << '[' << shipLetter << ']';
     }
     else

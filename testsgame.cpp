@@ -20,8 +20,8 @@ TEST_CASE( "Add a ship using player input" ) {
         g.inputShip("ship1");
         for (std::size_t i = 5; i <= 9; ++i)
         {
-            REQUIRE(g.currentBoard().checkOccupied(Coord{3, i}));
-            REQUIRE(g.currentBoard().shipAtPoint(Coord{3, i}) == "ship1");
+            REQUIRE(g.currentBoard().isOccupied(Coord{3, i}));
+            REQUIRE(g.currentBoard().shipAt(Coord{3, i}) == "ship1");
         }
     }
     SECTION( "Ship 2" ) {
@@ -29,8 +29,8 @@ TEST_CASE( "Add a ship using player input" ) {
         g.inputShip("ship2");
         for (std::size_t i = 2; i <= 4; ++i)
         {
-            REQUIRE(g.currentBoard().checkOccupied(Coord{i, 6}));
-            REQUIRE(g.currentBoard().shipAtPoint(Coord{i, 6}) == "ship2");
+            REQUIRE(g.currentBoard().isOccupied(Coord{i, 6}));
+            REQUIRE(g.currentBoard().shipAt(Coord{i, 6}) == "ship2");
         }
     }
 }

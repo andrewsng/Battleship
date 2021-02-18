@@ -49,16 +49,16 @@ public:
         return pos.x >= size() || pos.y >= size();
     }
 
-	// hitPoint
+	// hit
 	// Set tile to hit.
-	void hitPoint(Coord pos)
+	void hit(Coord pos)
 	{
 		pointAt(pos).isHit = true;
 	}
 
-	// checkHit
-	// Return whether ship has been hit or not.
-	bool checkHit(Coord pos) const
+	// isHitAt
+	// Return whether ship has been hit at a given coordinate.
+	bool isHitAt(Coord pos) const
 	{
 		return pointAt(pos).isHit;
 	}
@@ -71,16 +71,16 @@ public:
 		pointAt(pos).shipName = name;
 	}
 
-	// checkOccupied
-	// Return whether a tile is occupied by a ship or not.
-	bool checkOccupied(Coord pos) const
+	// isOccupied
+	// Return whether a tile is occupied by a ship at a given coordinate.
+	bool isOccupied(Coord pos) const
 	{
 		return pointAt(pos).isOccupied;
 	}
 
-	// shipAtPoint
+	// shipAt
 	// Return name of ship.
-	std::string shipAtPoint(Coord pos) const
+	std::string shipAt(Coord pos) const
 	{
 		return pointAt(pos).shipName;
 	}

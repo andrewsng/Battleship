@@ -35,7 +35,7 @@ pair<bool, string> Board::addShip(Coord start, Coord end, const string& name)
 
     for (auto c : shipCoordinates)
     {
-        if (checkOccupied(c))
+        if (isOccupied(c))
             return make_pair(false,
                 "Coordinates already occupied by ship");
     }
@@ -51,14 +51,14 @@ pair<bool,string> Board::sendAttack(Coord hitTile) {
 	vector<Coord> attackCoordinates;
 	for (auto c : attackCoordinates)
 	{
-		if (checkHit(c))
+		if (isHitAt(c))
 			return make_pair(false,
 				"Coordinates have already been hit");
 	}
 	attackCoordinates.push_back(Coord{ hitTile.x, hitTile.y });
 	for (auto c : attackCoordinates)
 	{
-		hitPoint(c);
+		isHitAt(c);
 	}
 
 	return make_pair(true, "");
