@@ -143,6 +143,10 @@ private:
     // Returns a list of coordinates between the 2 given, including them.
     std::vector<Coord> coordsBetween(Coord start, Coord end) const;
 
+	// rightShipSize
+	// Returns whether given coordinates designate a ship of the right size.
+	bool rightShipSize(Coord start, Coord end, size_t restrictSize) const;
+
 // ---- Board: Private Point struct and helper functions ----
 private:
 

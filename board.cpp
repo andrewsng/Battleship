@@ -19,6 +19,8 @@ using std::swap;
 using std::any_of;
 #include <cmath>
 using std::abs;
+#include <cstddef>
+using std::size_t;
 
 
 vector<Coord> Board::coordsBetween(Coord start, Coord end) const
@@ -43,8 +45,20 @@ vector<Coord> Board::coordsBetween(Coord start, Coord end) const
 }
 
 
+bool Board::rightShipSize(Coord start, Coord end, size_t restrictSize) const
+{
+    std::size_t shipSize;
+    if (start.x == end.x)  // Vertical Case
+        shipSize = abs(int(start.y) - int(end.y)) + 1;
+    else                   // Horizontal Case
+        shipSize = abs(int(start.x) - int(end.x)) + 1;
+    
+    return shipSize == restrictSize;
+}
+
+
 pair<bool, string> Board::addShip(Coord start, Coord end,
-    const string& name, std::size_t restrictSize)
+    const string& name, size_t restrictSize)
 {
     if (start.x == end.x && start.y == end.y)
         return make_pair(false, "Coordinates are the same");
@@ -52,15 +66,8 @@ pair<bool, string> Board::addShip(Coord start, Coord end,
     if (start.x != end.x && start.y != end.y)
         return make_pair(false, "Coordinates are not aligned");
 
-    if (restrictSize != 0)
-    {
-        // Vertical Case
-        if (start.x == end.x && (abs(int(start.y)-int(end.y))+1) != int(restrictSize))
-            return make_pair(false, "Ship is not the right size");
-        // Horizontal Case
-        if (start.y == end.y && (abs(int(start.x)-int(end.x))+1) != int(restrictSize))
-            return make_pair(false, "Ship is not the right size");
-    }
+    if (restrictSize != 0 && !rightShipSize(start, end, restrictSize))
+        return make_pair(false, "Ship is not the right size");
 
     vector<Coord> shipCoords = coordsBetween(start, end);
 
