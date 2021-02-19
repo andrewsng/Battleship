@@ -63,6 +63,18 @@ public:
     // Prints the results of the attacks on the opposing player's board.
     void printAllResults() const;
 
+    // allShipsSunk
+    // Given a list of ship names, return whether all ships are sunk or not.
+    bool allShipsSunk(std::vector<std::string> shipList) const
+    {
+        for (const auto &name : shipList)
+        {
+            if (!opposingBoard().isSunk(name))
+                return false;
+        }
+        return true;
+    }
+
     // currentBoard
     // Returns a reference to the board of the current player.
     Board& currentBoard()

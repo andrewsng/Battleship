@@ -31,6 +31,14 @@ int main()
         { "Patrol Boat", 2 }
     };
 
+    vector<string> classicShipNames = {
+        { "Carrier" },
+        { "Battleship" },
+        { "Destroyer" },
+        { "Submarine" },
+        { "Patrol Boat" }
+    };
+
     cout << string(200, '\n');
     for (const auto &ship : classicShips)
     {
@@ -53,6 +61,15 @@ int main()
         classicBattleship.printAllResults();
         classicBattleship.inputHit();
         classicBattleship.printHitResult();
+        if (classicBattleship.allShipsSunk(classicShipNames))
+        {
+            classicBattleship.switchPlayer();
+            classicBattleship.printShips();
+            classicBattleship.switchPlayer();
+            classicBattleship.printShips();
+            cout << "game over\n";
+            break;
+        }
         classicBattleship.switchPlayer();
         cout << "---- Press ENTER to continue. ----\n";
         getchar();
