@@ -42,6 +42,13 @@ public:
     {
         _player = 1 - _player;
     }
+
+    // currentPlayer
+    // Returns the current player number (1 or 2).
+    std::size_t currentPlayer() const
+    {
+        return _player + 1;
+    }
     
     // inputShip
     // Add a ship to the current player's board according to inputs.
