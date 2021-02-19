@@ -128,7 +128,7 @@ public:
     // Returns whether the operation was successful, and an error
     //   message if unsuccessful.
     std::pair<bool, std::string>
-        addShip(Coord start, Coord end, const std::string& name);
+        addShip(Coord start, Coord end, const std::string& name, std::size_t restrictSize);
 
 	// sendAttack
 	// Given a coordinate, sets a tile to hit.

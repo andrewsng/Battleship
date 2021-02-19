@@ -17,6 +17,8 @@ using std::make_pair;
 using std::swap;
 #include <algorithm>
 using std::any_of;
+#include <cmath>
+using std::abs;
 
 
 vector<Coord> Board::coordsBetween(Coord start, Coord end) const
@@ -41,13 +43,24 @@ vector<Coord> Board::coordsBetween(Coord start, Coord end) const
 }
 
 
-pair<bool, string> Board::addShip(Coord start, Coord end, const string& name)
+pair<bool, string> Board::addShip(Coord start, Coord end,
+    const string& name, std::size_t restrictSize)
 {
     if (start.x == end.x && start.y == end.y)
         return make_pair(false, "Coordinates are the same");
 
     if (start.x != end.x && start.y != end.y)
         return make_pair(false, "Coordinates are not aligned");
+
+    if (restrictSize != 0)
+    {
+        // Vertical Case
+        if (start.x == end.x && (abs(int(start.y)-int(end.y))+1) != int(restrictSize))
+            return make_pair(false, "Ship is not the right size");
+        // Horizontal Case
+        if (start.y == end.y && (abs(int(start.x)-int(end.x))+1) != int(restrictSize))
+            return make_pair(false, "Ship is not the right size");
+    }
 
     vector<Coord> shipCoords = coordsBetween(start, end);
 
