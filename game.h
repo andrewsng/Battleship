@@ -64,8 +64,9 @@ public:
     void printAllResults() const;
 
     // allShipsSunk
-    // Given a list of ship names, return whether all ships are sunk or not.
-    bool allShipsSunk(std::vector<std::string> shipList) const
+    // Given a list of ship names, return whether
+    // all ships are sunk on the opposing board.
+    bool opposingShipsSunk(std::vector<std::string> shipList) const
     {
         for (const auto &name : shipList)
         {
