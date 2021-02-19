@@ -77,7 +77,7 @@ void Game::printSpace(Coord pos) const
     }
     else
     {
-        cout << " - ";
+        cout << "   ";
     }
 }
 
@@ -85,14 +85,20 @@ void Game::printHitSpace(Coord pos) const
 {
     if (!opposingBoard().isHitAt(pos))
     {
-        cout << " - ";
+        cout << "   ";
     }
     else
     {
         if (opposingBoard().isOccupied(pos))
-            cout << " X ";
+        {
+            string shipName = opposingBoard().shipAt(pos);
+            if (opposingBoard().isSunk(shipName))
+                cout << "{S}";
+            else
+                cout << "[X]";
+        }
         else
-            cout << " O ";
+            cout << "(O)";
     }
 }
 
