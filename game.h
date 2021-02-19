@@ -8,30 +8,32 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "board.h"
+#include "board.h"  // For class Board
 
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::cerr;
-#include <array>
-#include <string>
-using std::string;
-using std::getline;
-#include <sstream>
-using std::istringstream;
-#include <cctype>
-using std::isalpha;
-using std::tolower;
+#include <array>    // For std::array
 
 
+// class Game
+// Manages players and input for a game with 2 Boards.
 class Game
 {
 
+// ---- Game: ctors, dctors, op= ----
 public:
 
+    // Default ctor.
     Game() = default;
 
+    // Default dctor.
+    ~Game() = default;
+
+    // Copy, move, op= all deleted.
+    Game(const Game &other) = delete;
+    Game &operator=(const Game &other) = delete;
+    Game(Game &&other) = delete;
+    Game &operator=(Game &&other) = delete;
+
+// ---- Game: General public functions ----
 public:
 
     // switchPlayer
@@ -60,6 +62,7 @@ public:
         return _boards[_player];
     }
 
+// ---- Game: General private functions ----
 private:
 
     // getCoord
@@ -78,12 +81,13 @@ private:
     // Prints the space on the current board at the given coordinate.
     void printSpace(Coord pos) const;
 
+// ---- Game: Private data members ----
 private:
 
     std::size_t          _player{ 0 };  // Current player (0 or 1)
     std::array<Board, 2> _boards{};     // Player specific boards
 
-};
+};  // End class Game
 
 
 #endif  // GAME_H

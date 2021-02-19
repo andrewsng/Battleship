@@ -8,6 +8,19 @@
 #include "game.h"
 #include "board.h"
 
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::cerr;
+#include <string>
+using std::string;
+using std::getline;
+#include <sstream>
+using std::istringstream;
+#include <cstddef>
+using std::size_t;
+
+
 void Game::inputShip(const string& ship)
 {
     Coord c0, c1;
@@ -31,23 +44,23 @@ void Game::inputShip(const string& ship)
 
 void Game::printGridLine() const
 {
-    std::cout << '+';
-    for (std::size_t col = 0; col < currentBoard().size(); ++col)
+    cout << '+';
+    for (size_t col = 0; col < currentBoard().size(); ++col)
     {
-        std::cout << "---+";
+        cout << "---+";
     }
-    std::cout << '\n';
+    cout << '\n';
 }
 
 
 void Game::printGridNumbers() const
 {
-    std::cout << ' ';
-    for (std::size_t colNum = 1; colNum < currentBoard().size()+1; ++colNum)
+    cout << ' ';
+    for (size_t colNum = 1; colNum < currentBoard().size()+1; ++colNum)
     {
-        std::cout << ' ' << colNum << "  ";
+        cout << ' ' << colNum << "  ";
     }
-    std::cout << '\n';
+    cout << '\n';
 }
 
 
@@ -56,37 +69,37 @@ void Game::printSpace(Coord pos) const
     if (currentBoard().isOccupied(pos))
     {
         const char shipLetter = currentBoard().shipAt(pos)[0];
-        std::cout << '[' << shipLetter << ']';
+        cout << '[' << shipLetter << ']';
     }
     else
     {
-        std::cout << " - ";
+        cout << " - ";
     }
 }
 
 
 void Game::printShips() const
 {
-    const std::size_t size = currentBoard().size();
-    const std::string padding = "   "; // 3 spaces
+    const size_t size = currentBoard().size();
+    const string padding = "   "; // 3 spaces
 
-    std::cout << padding;
+    cout << padding;
     printGridLine();
-    for (std::size_t row = 0; row < size; ++row)
+    for (size_t row = 0; row < size; ++row)
     {
         char rowLetter = 'A' + row;
-        std::cout << ' ' << rowLetter << " |";
-        for (std::size_t col = 0; col < size; ++col)
+        cout << ' ' << rowLetter << " |";
+        for (size_t col = 0; col < size; ++col)
         {
             printSpace(Coord{row, col});
-            std::cout << '|';
+            cout << '|';
         }
-        std::cout << '\n';
+        cout << '\n';
 
-        std::cout << padding;
+        cout << padding;
         printGridLine();
     }
-    std::cout << padding;
+    cout << padding;
     printGridNumbers();
 }
 
@@ -117,8 +130,8 @@ Coord Game::getCoord() const
             continue;
         }
 
-        std::size_t x = tolower(letter) - 'a';
-        std::size_t y = digit - 1;
+        size_t x = tolower(letter) - 'a';
+        size_t y = digit - 1;
         Coord result{x, y};
         
         if (currentBoard().outOfBounds(result))
