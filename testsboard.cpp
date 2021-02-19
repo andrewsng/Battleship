@@ -51,7 +51,7 @@ TEST_CASE("Mark a ship as destroyed") {
 
 	SECTION("Vertical Ship Sunk")
 	{
-		b.addShip(Coord{ 2, 2 }, Coord{ 2,5 }, "ship");
+		b.addShip(Coord{ 2, 2 }, Coord{ 2,5 }, "ship", 0);
 
 		for (std::size_t i = 2; i <= 5; i++) {
 			b.hit(Coord{ 2,i });
@@ -67,7 +67,7 @@ TEST_CASE("Mark a ship as destroyed") {
 
 	SECTION("Horizontal Ship Sunk")
 	{
-		b.addShip(Coord{ 5, 6 }, Coord{ 8,6 }, "ship");
+		b.addShip(Coord{ 5, 6 }, Coord{ 8,6 }, "ship", 0);
 
 		for (std::size_t i = 5; i <= 8; i++) {
 			b.hit(Coord{ i,6 });
@@ -83,7 +83,7 @@ TEST_CASE("Mark a ship as destroyed") {
 
     SECTION("Vertical Ship Unsunk")
 	{
-		b.addShip(Coord{ 2, 2 }, Coord{ 2,5 }, "ship");
+		b.addShip(Coord{ 2, 2 }, Coord{ 2,5 }, "ship", 0);
 
 		for (std::size_t i = 2; i <= 4; i++) {
 			b.hit(Coord{ 2,i });
@@ -101,7 +101,7 @@ TEST_CASE("Mark a ship as destroyed") {
 
 	SECTION("Horizontal Ship Unsunk")
 	{
-		b.addShip(Coord{ 5, 6 }, Coord{ 8,6 }, "ship");
+		b.addShip(Coord{ 5, 6 }, Coord{ 8,6 }, "ship", 0);
 
 		for (std::size_t i = 5; i <= 7; i++) {
 			b.hit(Coord{ i,6 });
@@ -122,7 +122,7 @@ TEST_CASE( "Add a full ship to a board" ) {
     Board b;
 
     SECTION( "Vertical Ship" ) {
-        auto [worked, msg] = b.addShip(Coord{3, 5}, Coord{3, 9}, "ship");
+        auto [worked, msg] = b.addShip(Coord{3, 5}, Coord{3, 9}, "ship", 0);
         REQUIRE(worked);
         for (std::size_t i = 5; i <= 9; ++i)
         {
@@ -131,7 +131,7 @@ TEST_CASE( "Add a full ship to a board" ) {
         }
     }
     SECTION( "Horizontal Ship" ) {
-        auto [worked, msg] = b.addShip(Coord{2, 6}, Coord{4, 6}, "ship");
+        auto [worked, msg] = b.addShip(Coord{2, 6}, Coord{4, 6}, "ship", 0);
         REQUIRE(worked);
         for (std::size_t i = 2; i <= 4; ++i)
         {
@@ -140,18 +140,18 @@ TEST_CASE( "Add a full ship to a board" ) {
         }
     }
     SECTION( "Coordinates not aligned" ) {
-        auto [worked, msg] = b.addShip(Coord{1, 1}, Coord{2, 2}, "ship");
+        auto [worked, msg] = b.addShip(Coord{1, 1}, Coord{2, 2}, "ship", 0);
         REQUIRE(!worked);
         REQUIRE(msg == "Coordinates are not aligned");
     }
     SECTION( "Coordinates the same" ) {
-        auto [worked, msg] = b.addShip(Coord{4, 4}, Coord{4, 4}, "ship");
+        auto [worked, msg] = b.addShip(Coord{4, 4}, Coord{4, 4}, "ship", 0);
         REQUIRE(!worked);
         REQUIRE(msg == "Coordinates are the same");
     }
     SECTION( "Coordinates occupied by other ship" ) {
-        b.addShip(Coord{3, 5}, Coord{3, 9}, "ship");
-        auto [worked, msg] = b.addShip(Coord{1, 7}, Coord{5, 7}, "ship");
+        b.addShip(Coord{3, 5}, Coord{3, 9}, "ship", 0);
+        auto [worked, msg] = b.addShip(Coord{1, 7}, Coord{5, 7}, "ship", 0);
         REQUIRE(!worked);
         REQUIRE(msg == "Coordinates already occupied by ship");
     }

@@ -17,7 +17,7 @@ TEST_CASE( "Add a ship using player input" ) {
 
     SECTION( "Ship 1" ) {
         std::cout << "Tests require coordinates: d6, d10\n";
-        g.inputShip("ship1");
+        g.inputShip("ship1", 0);
         for (std::size_t i = 5; i <= 9; ++i)
         {
             REQUIRE(g.currentBoard().isOccupied(Coord{3, i}));
@@ -26,7 +26,7 @@ TEST_CASE( "Add a ship using player input" ) {
     }
     SECTION( "Ship 2" ) {
         std::cout << "\nTests require coordinates: c7, e7\n";
-        g.inputShip("ship2");
+        g.inputShip("ship2", 0);
         for (std::size_t i = 2; i <= 4; ++i)
         {
             REQUIRE(g.currentBoard().isOccupied(Coord{i, 6}));
