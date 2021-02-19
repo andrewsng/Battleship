@@ -97,19 +97,22 @@ public:
 		return pointAt(pos).shipName;
 	}
 
-	// shipSunk
-	// Set ship on tile to sank.
-	void shipSunk(Coord pos, const std::string& name)
+	// isSunk
+	// Return whether a given ship has sank or not.
+	bool isSunk(const std::string& name) const
 	{
-			pointAt(pos).isSunk = true;
-			pointAt(pos).shipName = name;
-	}
-
-	// checkSunk
-	// Return whether a ship has sank or not.
-	bool checkSunk(Coord pos) const
-	{
-		return pointAt(pos).isSunk;
+		for (const auto& row : _board)
+		{
+			for (const auto& point : row)
+			{
+				if (point.isOccupied && point.shipName == name
+				 && !point.isHit)
+				{
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
     // addShip
@@ -145,7 +148,6 @@ private:
 	{
 		bool isHit{ false };
 		bool isOccupied{ false };
-		bool isSunk{ false };
         std::string shipName{};
 	};  // End struct Point
 
