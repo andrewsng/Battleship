@@ -44,14 +44,24 @@ public:
     }
     
     // inputShip
-    // Add a ship to a player's board according to coordinate inputs
-    void inputShip(const std::string& ship);
+    // Add a ship to the current player's board according to inputs.
+    void inputShip(const std::string& ship, std::size_t restrictSize);
 
     // printShips
     // Prints the current player's board with ships visible.
     void printShips() const;
 
+    // inputHit
+    // Add a hit to the opposing player's board according to input.
     void inputHit();
+
+    // printHitResult
+    // Prints the result of the most recent attack.
+    void printHitResult() const;
+
+    // printAllResults
+    // Prints the results of the attacks on the opposing player's board.
+    void printAllResults() const;
 
     // currentBoard
     // Returns a reference to the board of the current player.
@@ -62,6 +72,17 @@ public:
     const Board& currentBoard() const
     {
         return _boards[_player];
+    }
+
+    // opposingBoard
+    // Returns a reference to the board of the opposing player.
+    Board& opposingBoard()
+    {
+        return _boards[1 - _player];
+    }
+    const Board& opposingBoard() const
+    {
+        return _boards[1 - _player];
     }
 
 // ---- Game: General private functions ----
@@ -82,11 +103,16 @@ private:
     // printSpace
     // Prints the space on the current board at the given coordinate.
     void printSpace(Coord pos) const;
+    
+    // printHitSpace
+    // Prints the hit result on the opposing board at the given coordinate.
+    void printHitSpace(Coord pos) const;
 
 // ---- Game: Private data members ----
 private:
 
     std::size_t          _player{ 0 };  // Current player (0 or 1)
+    Coord                _prevHit{};    // Most recent attack target
     std::array<Board, 2> _boards{};     // Player specific boards
 
 };  // End class Game

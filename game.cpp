@@ -21,7 +21,7 @@ using std::istringstream;
 using std::size_t;
 
 
-void Game::inputShip(const string& ship)
+void Game::inputShip(const string& ship, size_t restrictSize)
 {
     Coord c0, c1;
     while (true)
@@ -30,31 +30,10 @@ void Game::inputShip(const string& ship)
         c0 = getCoord();
         c1 = getCoord();
 
-        auto [worked, msg] = currentBoard().addShip(c0, c1, ship);
+        auto [worked, msg] = currentBoard().addShip(c0, c1, ship, restrictSize);
         if (!worked)
         {
             cout << "\nCould not place ship, try again: " << msg << '\n';
-            continue;
-        }
-
-        break;
-    }
-}
-
-
-void Game::inputHit()
-{
-    while (true)
-    {
-        cout << "Enter a coordinate for the attack\n";
-        Coord targetPosition = getCoord();
-
-        switchPlayer();
-        auto [worked, msg] = currentBoard().hit(targetPosition);
-        switchPlayer();
-        if (!worked)
-        {
-            cout << "\nCould not attack target, try again: " << msg << '\n';
             continue;
         }
 
@@ -113,6 +92,86 @@ void Game::printShips() const
         for (size_t col = 0; col < size; ++col)
         {
             printSpace(Coord{row, col});
+            cout << '|';
+        }
+        cout << '\n';
+
+        cout << padding;
+        printGridLine();
+    }
+    cout << padding;
+    printGridNumbers();
+}
+
+
+void Game::inputHit()
+{
+    while (true)
+    {
+        cout << "Enter a coordinate for the attack\n";
+        Coord targetPosition = getCoord();
+
+        auto [worked, msg] = opposingBoard().hit(targetPosition);
+        if (!worked)
+        {
+            cout << "\nCould not attack target, try again: " << msg << '\n';
+            continue;
+        }
+        _prevHit = targetPosition;
+
+        break;
+    }
+}
+
+
+void Game::printHitResult() const
+{
+    if (!opposingBoard().isOccupied(_prevHit))
+    {
+        cout << "Attack missed...\n";
+    }
+    else
+    {
+        cout << "Attack hit!\n";
+        std::string hitShipName = opposingBoard().shipAt(_prevHit);
+        if (opposingBoard().isSunk(hitShipName))
+        {
+            cout << hitShipName << " has been sunk!\n";
+        }
+    }
+}
+
+
+void Game::printHitSpace(Coord pos) const
+{
+    if (!opposingBoard().isHitAt(pos))
+    {
+        cout << " - ";
+    }
+    else
+    {
+        if (opposingBoard().isOccupied(pos))
+            cout << " X ";
+        else
+            cout << " O ";
+    }
+}
+
+
+void Game::printAllResults() const
+{
+    const size_t size = opposingBoard().size();
+    const string padding = "   "; // 3 spaces
+
+    cout << padding;
+    printGridLine();
+    for (size_t row = 0; row < size; ++row)
+    {
+        char rowLetter = 'A' + row;
+        cout << ' ' << rowLetter << " |";
+        for (size_t col = 0; col < size; ++col)
+        {
+            printHitSpace(Coord{row, col});
             cout << '|';
         }
         cout << '\n';
