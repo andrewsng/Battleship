@@ -121,6 +121,11 @@ private:
     // Prints the hit result on the opposing board at the given coordinate.
     void printHitSpace(Coord pos) const;
 
+    // printBoard
+    // Prints the board with information depending on 
+    // if it's told to be setup or attack phase.
+    void printBoard(bool setupPhase) const;
+
 // ---- Game: Private data members ----
 private:
 

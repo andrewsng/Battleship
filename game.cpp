@@ -81,10 +81,29 @@ void Game::printSpace(Coord pos) const
     }
 }
 
-
-void Game::printShips() const
+void Game::printHitSpace(Coord pos) const
 {
-    const size_t size = currentBoard().size();
+    if (!opposingBoard().isHitAt(pos))
+    {
+        cout << " - ";
+    }
+    else
+    {
+        if (opposingBoard().isOccupied(pos))
+            cout << " X ";
+        else
+            cout << " O ";
+    }
+}
+
+
+void Game::printBoard(bool setupPhase) const
+{
+    size_t size;
+    if (setupPhase)
+        size = currentBoard().size();
+    else
+        size = opposingBoard().size();  
     const string padding = "   "; // 3 spaces
 
     cout << padding;
@@ -97,7 +116,11 @@ void Game::printShips() const
         cout << ' ' << rowLetter << " |";
         for (size_t col = 0; col < size; ++col)
         {
-            printSpace(Coord{row, col});
+            if (setupPhase)
+                printSpace(Coord{row, col});
+            else
+                printHitSpace(Coord{row, col});
+
             cout << '|';
         }
         cout << '\n';
@@ -106,6 +129,18 @@ void Game::printShips() const
         printGridLine();
     }
     cout << '\n';
+}
+
+
+void Game::printShips() const
+{
+    printBoard(true);
+}
+
+
+void Game::printAllResults() const
+{
+    printBoard(false);
 }
 
 
@@ -144,48 +179,6 @@ void Game::printHitResult() const
             cout << hitShipName << " has been sunk!\n";
         }
     }
-}
-
-
-void Game::printHitSpace(Coord pos) const
-{
-    if (!opposingBoard().isHitAt(pos))
-    {
-        cout << " - ";
-    }
-    else
-    {
-        if (opposingBoard().isOccupied(pos))
-            cout << " X ";
-        else
-            cout << " O ";
-    }
-}
-
-
-void Game::printAllResults() const
-{
-    const size_t size = opposingBoard().size();
-    const string padding = "   "; // 3 spaces
-
-    cout << padding;
-    printGridLine();
-    for (size_t row = 0; row < size; ++row)
-    {
-        char rowLetter = 'A' + row;
-        cout << ' ' << rowLetter << " |";
-        for (size_t col = 0; col < size; ++col)
-        {
-            printHitSpace(Coord{row, col});
-            cout << '|';
-        }
-        cout << '\n';
-
-        cout << padding;
-        printGridLine();
-    }
-    cout << padding;
-    printGridNumbers();
 }
 
 
