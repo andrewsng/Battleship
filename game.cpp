@@ -26,7 +26,11 @@ void Game::inputShip(const string& ship, size_t restrictSize)
     Coord c0, c1;
     while (true)
     {
-        cout << "Enter start and end coordinates for the ship - \"" << ship << "\"\n";
+        cout << "Enter start and end coordinates for the ship - \"" << ship << "\"";
+        if (restrictSize != 0)
+            cout << " - (SIZE " << restrictSize << ')';
+        cout << '\n';
+
         c0 = getCoord();
         c1 = getCoord();
 
@@ -84,6 +88,8 @@ void Game::printShips() const
     const string padding = "   "; // 3 spaces
 
     cout << padding;
+    printGridNumbers();
+    cout << padding;
     printGridLine();
     for (size_t row = 0; row < size; ++row)
     {
@@ -99,8 +105,7 @@ void Game::printShips() const
         cout << padding;
         printGridLine();
     }
-    cout << padding;
-    printGridNumbers();
+    cout << '\n';
 }
 
 
