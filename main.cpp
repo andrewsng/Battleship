@@ -7,28 +7,55 @@
 
 #include "game.h"
 
+#include <iostream>
+using std::cout;
+#include <vector>
+using std::vector;
+#include <string>
+using std::string;
+#include <utility>
+using std::pair;
+#include <cstddef>
+using std::size_t;
+
 
 int main()
 {
-    Game game;
+    Game classicBattleship;
 
-    game.printShips();
-    game.inputShip("1ship", 0);
-    game.inputShip("Patrol Boat", 2);
-    // game.printShips();
-    // game.inputShip("2ship");
-    // game.printShips();
-    // game.inputShip("3ship");
-    // game.printShips();
-    // game.inputShip("4ship");
-    // game.printShips();
-    // game.inputShip("5ship");
-    game.printShips();
-    game.switchPlayer();
+    vector<pair<string, size_t>> classicShips = {
+        { "Carrier",     5 },
+        { "Battleship",  4 },
+        { "Destroyer",   3 },
+        { "Submarine",   3 },
+        { "Patrol Boat", 2 }
+    };
+
+    cout << string(200, '\n');
+    for (const auto &ship : classicShips)
+    {
+        classicBattleship.printShips();
+        classicBattleship.inputShip(ship.first, ship.second);
+        cout << string(200, '\n');
+    }
+    classicBattleship.switchPlayer();
+    cout << string(200, '\n');
+    for (const auto &ship : classicShips)
+    {
+        classicBattleship.printShips();
+        classicBattleship.inputShip(ship.first, ship.second);
+        cout << string(200, '\n');
+    }
+    classicBattleship.switchPlayer();
+    cout << string(200, '\n');
     while (true)
     {
-        game.printAllResults();
-        game.inputHit();
-        game.printHitResult();
+        classicBattleship.printAllResults();
+        classicBattleship.inputHit();
+        classicBattleship.printHitResult();
+        classicBattleship.switchPlayer();
+        cout << "---- Press ENTER to continue. ----\n";
+        getchar();
+        cout << string(200, '\n');
     }
 }
