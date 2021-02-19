@@ -42,6 +42,27 @@ void Game::inputShip(const string& ship)
 }
 
 
+void Game::inputHit()
+{
+    while (true)
+    {
+        cout << "Enter a coordinate for the attack\n";
+        Coord targetPosition = getCoord();
+
+        switchPlayer();
+        auto [worked, msg] = currentBoard().hit(targetPosition);
+        switchPlayer();
+        if (!worked)
+        {
+            cout << "\nCould not attack target, try again: " << msg << '\n';
+            continue;
+        }
+
+        break;
+    }
+}
+
+
 void Game::printGridLine() const
 {
     cout << '+';

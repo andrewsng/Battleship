@@ -62,21 +62,3 @@ pair<bool, string> Board::addShip(Coord start, Coord end, const string& name)
 
     return make_pair(true, "");
 }
-
-
-pair<bool,string> Board::sendAttack(Coord hitTile) {
-	vector<Coord> attackCoordinates;
-	for (auto c : attackCoordinates)
-	{
-		if (isHitAt(c))
-			return make_pair(false,
-				"Coordinates have already been hit");
-	}
-	attackCoordinates.push_back(Coord{ hitTile.x, hitTile.y });
-	for (auto c : attackCoordinates)
-	{
-		isHitAt(c);
-	}
-
-	return make_pair(true, "");
-}

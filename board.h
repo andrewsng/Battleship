@@ -63,9 +63,16 @@ public:
 
 	// hit
 	// Set tile to hit.
-	void hit(Coord pos)
+	// Returns whether the operation was successful, and an error
+    //   message if unsuccessful.
+	std::pair<bool, std::string> hit(Coord pos)
 	{
+		if (isHitAt(pos))
+			return std::make_pair(false,
+				"Coordinates have already been hit");
+
 		pointAt(pos).isHit = true;
+		return std::make_pair(true, "");
 	}
 
 	// isHitAt

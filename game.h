@@ -51,6 +51,8 @@ public:
     // Prints the current player's board with ships visible.
     void printShips() const;
 
+    void inputHit();
+
     // currentBoard
     // Returns a reference to the board of the current player.
     Board& currentBoard()
