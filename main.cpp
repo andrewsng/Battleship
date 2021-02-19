@@ -10,6 +10,7 @@
 #include <iostream>
 using std::cin;
 using std::cout;
+using std::endl;
 #include <vector>
 using std::vector;
 #include <string>
@@ -22,7 +23,7 @@ using std::size_t;
 
 void clearScreen()
 {
-    cout << string(200, '\n') << std::endl;
+    cout << string(200, '\n') << endl;
 }
 
 
@@ -32,15 +33,27 @@ void pauseForUser()
 }
 
 
+void printCurrentPlayer(const Game &battleship)
+{
+    cout << "----------------- Player ";
+    cout << battleship.currentPlayer();
+    cout << " -----------------\n";
+}
+
+
 void setupShips(Game &battleship, vector<pair<string, size_t>> shipList)
 {
     for (const auto &ship : shipList)
     {
+        printCurrentPlayer(battleship);
+        cout << "------------------ SETUP -------------------\n\n";
         battleship.printShips();
         battleship.inputShip(ship.first, ship.second);
         clearScreen();
     }
 
+    printCurrentPlayer(battleship);
+    cout << "--------------- Final Board ----------------\n\n";
     battleship.printShips();
     cout << "---- Press ENTER to continue. ----\n";
     pauseForUser();
@@ -49,7 +62,7 @@ void setupShips(Game &battleship, vector<pair<string, size_t>> shipList)
 
 int main()
 {
-    Game classicBattleship;
+    Game classic;
 
     vector<pair<string, size_t>> classicShips = {
         { "Carrier",     5 },
@@ -68,36 +81,52 @@ int main()
     };
 
     clearScreen();
-    setupShips(classicBattleship, classicShips);
-    classicBattleship.switchPlayer();
+    setupShips(classic, classicShips);
+    classic.switchPlayer();
 
     clearScreen();
-    setupShips(classicBattleship, classicShips);
-    classicBattleship.switchPlayer();
+    setupShips(classic, classicShips);
+    classic.switchPlayer();
 
     clearScreen();
     while (true)
     {
-        classicBattleship.printAllResults();
-        classicBattleship.inputHit();
+        printCurrentPlayer(classic);
+        cout << "----------------- ATTACKING ----------------\n\n";
+
+        classic.printAllResults();
+        classic.inputHit();
 
         clearScreen();
-        classicBattleship.printAllResults();
-        classicBattleship.printHitResult();
+        cout << "   (O) - Miss, [X] - Hit, {S} - Sunk\n\n";
+        classic.printAllResults();
+        classic.printHitResult();
 
-        if (classicBattleship.opposingShipsSunk(classicShipNames))
+        if (classic.opposingShipsSunk(classicShipNames))
         {
-            classicBattleship.switchPlayer();
-            classicBattleship.printShips();
-            classicBattleship.switchPlayer();
-            classicBattleship.printShips();
-            cout << "Game over!\n";
+            cout << "Game over! Player ";
+            cout << classic.currentPlayer() << " has won!\n";
+            cout << "---- Press ENTER to continue. ----\n";
+            pauseForUser();
+
+            clearScreen();
+            cout << "=============== FINAL BOARDS ===============\n\n";
+
+            classic.setPlayer(1);
+            printCurrentPlayer(classic);
+            classic.printFinalBoard();
+            
+            classic.switchPlayer();
+            printCurrentPlayer(classic);
+            classic.printFinalBoard();
+            cout << "---- Press ENTER to exit. ----\n";
+            pauseForUser();
             break;
         }
         
         cout << "---- Press ENTER to continue. ----\n";
         pauseForUser();
         clearScreen();
-        classicBattleship.switchPlayer();
+        classic.switchPlayer();
     }
 }
