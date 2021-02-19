@@ -10,6 +10,7 @@
 
 #include "board.h"  // For class Board
 
+#include <iostream> // For std::cout
 #include <array>    // For std::array
 
 
@@ -43,6 +44,13 @@ public:
         _player = 1 - _player;
     }
 
+    // setPlayer
+    // Sets the current player number (1 or 2).
+    void setPlayer(std::size_t playerNumber)
+    {
+        _player = playerNumber - 1;
+    }
+
     // currentPlayer
     // Returns the current player number (1 or 2).
     std::size_t currentPlayer() const
@@ -69,6 +77,10 @@ public:
     // printAllResults
     // Prints the results of the attacks on the opposing player's board.
     void printAllResults() const;
+
+    // printFinalBoard
+    // Prints the attacks and ships on the current player's board.
+    void printFinalBoard();
 
     // allShipsSunk
     // Given a list of ship names, return whether
@@ -126,12 +138,12 @@ private:
     
     // printHitSpace
     // Prints the hit result on the opposing board at the given coordinate.
-    void printHitSpace(Coord pos) const;
+    void printHitSpace(Coord pos, bool showHidden) const;
 
     // printBoard
     // Prints the board with information depending on 
     // if it's told to be setup or attack phase.
-    void printBoard(bool setupPhase) const;
+    void printBoard(bool setupPhase, bool final = false) const;
 
 // ---- Game: Private data members ----
 private:

@@ -81,11 +81,17 @@ void Game::printSpace(Coord pos) const
     }
 }
 
-void Game::printHitSpace(Coord pos) const
+void Game::printHitSpace(Coord pos, bool showHidden) const
 {
     if (!opposingBoard().isHitAt(pos))
     {
-        cout << "   ";
+        if (showHidden && opposingBoard().isOccupied(pos))
+        {
+            const char shipLetter = opposingBoard().shipAt(pos)[0];
+            cout << '[' << shipLetter << ']';
+        }
+        else
+            cout << "   ";
     }
     else
     {
@@ -103,7 +109,7 @@ void Game::printHitSpace(Coord pos) const
 }
 
 
-void Game::printBoard(bool setupPhase) const
+void Game::printBoard(bool setupPhase, bool final) const
 {
     size_t size;
     if (setupPhase)
@@ -125,7 +131,7 @@ void Game::printBoard(bool setupPhase) const
             if (setupPhase)
                 printSpace(Coord{row, col});
             else
-                printHitSpace(Coord{row, col});
+                printHitSpace(Coord{row, col}, final);
 
             cout << '|';
         }
@@ -147,6 +153,14 @@ void Game::printShips() const
 void Game::printAllResults() const
 {
     printBoard(false);
+}
+
+
+void Game::printFinalBoard()
+{
+    switchPlayer();
+    printBoard(false, true);
+    switchPlayer();
 }
 
 
